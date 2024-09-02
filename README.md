@@ -1,30 +1,89 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+Video Processing API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Requirements
+Node.js (v16 or higher)
+NestJS
+SQLite
+Swagger or Postman for API documentation
+Assumptions and Choices
+Assumptions
+Authentication:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+It is assumed that API calls require authentication. An AuthGuard is set up in the code but is currently commented out. If authentication is needed, this guard can be activated by uncommenting the relevant lines.
+File Handling:
 
-## Description
+The API assumes that file handling (uploading, trimming, merging) is done by another service or library. The current implementation primarily focuses on database operations and API design.
+Video files are stored on the server's file system, and paths to these files are stored in the SQLite database.
+Video Processing:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+For trimming and merging videos, it is assumed that the actual video processing (e.g., using FFmpeg) is handled outside the provided code. The code provided only handles metadata operations such as duration and file paths.
+Expiry Time:
+
+For sharing video links, the expiry time is assumed to be provided in the request body as an ISO string. The system assumes the client will provide a valid future date.
+Choices
+Database:
+
+SQLite was chosen as the database for simplicity and ease of use in a project that doesn’t require complex database operations. It also allows the project to be easily committed and shared as a single file.
+Error Handling:
+
+The service and controller classes include error handling to manage common issues like missing or invalid data, ensuring a better user experience.
+DTOs (Data Transfer Objects):
+
+DTOs were used for input validation and to ensure that only the required fields are processed. This helps maintain a clear contract for API consumers.
+Swagger for API Documentation:
+
+Swagger was chosen for API documentation because it integrates well with NestJS and provides an interactive UI for testing endpoints.
+Getting Started
+Prerequisites
+Ensure you have Node.js installed (v16 or higher).
+Clone the repository.
+bash
+Copy code
+git clone https://github.com/yourusername/video-processing-api.git
+cd video-processing-api
+Installation
+Install the necessary dependencies:
+bash
+Copy code
+npm install
+Running the API Server
+To start the API server:
+bash
+Copy code
+npm run start:dev
+The server will run at http://localhost:3000.
+API Documentation
+The Swagger UI for the API documentation can be accessed at http://localhost:3000/api.
+Testing
+To run unit tests:
+bash
+Copy code
+npm run test
+To run end-to-end tests:
+bash
+Copy code
+npm run test:e2e
+References
+NestJS Documentation:
+
+NestJS Official Documentation
+Used for setting up the project structure and learning about controllers, services, and DTOs.
+SQLite Documentation:
+
+SQLite Official Documentation
+Referenced for understanding database constraints and handling SQLite-specific issues.
+Swagger Documentation:
+
+Swagger Documentation for NestJS
+Used to integrate Swagger with NestJS for API documentation.
+Error Handling in NestJS:
+
+Error Handling in NestJS
+Referenced for implementing robust error handling in the service and controller classes.
+Video Processing with FFmpeg:
+
+FFmpeg Documentation
+FFmpeg is commonly used for video processing tasks like trimming and merging. Although the code does not directly implement FFmpeg, it’s recommended to use FFmpeg for these operations in a production environment.
 
 ## Installation
 

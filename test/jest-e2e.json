@@ -1,9 +1,12 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
   "rootDir": ".",
-  "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
-  }
+  },
+  "collectCoverage": true,
+  "coverageDirectory": "./coverage-e2e",
+  "testEnvironment": "node",
+  "coverageReporters": ["json", "lcov", "text", "clover"]
 }
